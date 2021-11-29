@@ -12,24 +12,24 @@ import {
 @Unique(['email'])
 export class User {
   @PrimaryGeneratedColumn('uuid')
-  id: number;
+    id: number;
 
   @Column()
   @IsNotEmpty()
-  role: string;
+    role: string;
 
   @Column({ name: 'email' })
   @IsEmail()
   @IsNotEmpty()
-  email: string;
+    email: string;
 
   @Column()
   @IsNotEmpty()
-  password: string;
+    password: string;
 
   @CreateDateColumn()
-  created_at: Date;
+    created_at: Date;
 
   @UpdateDateColumn()
-  updated_at: Date;
+    updated_at: Date;
 }

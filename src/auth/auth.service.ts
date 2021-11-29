@@ -9,6 +9,8 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
+
+  //TO DO encrypt password
   async validateUser(email: string, inputtedPassword: string): Promise<any> {
     const user: { email: string; password: string } =
       await this.usersService.findByEmail(email);
