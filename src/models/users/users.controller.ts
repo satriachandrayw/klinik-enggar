@@ -19,7 +19,7 @@ export class UsersController {
   }
 
   @Get()
-  findByEmail(@Body('email') email: string): Promise<User[]> {
+  findByEmail(@Body('email') email: string): Promise<User> {
     return this.userService.findByEmail(email);
   }
 

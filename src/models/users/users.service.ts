@@ -21,12 +21,12 @@ export class UsersService {
     return this.usersRepository.save(user);
   }
 
-  findOne(id: string): Promise<User> {
+  findOne(id: string): Promise<User | undefined> {
     return this.usersRepository.findOne(id);
   }
 
-  findByEmail(userEmail: string): Promise<User[]> {
-    return this.usersRepository.find({
+  findByEmail(userEmail: string): Promise<User | undefined> {
+    return this.usersRepository.findOne({
       where: { email: userEmail },
     });
   }
