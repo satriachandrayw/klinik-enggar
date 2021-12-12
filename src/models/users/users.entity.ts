@@ -18,7 +18,7 @@ export class User {
   @IsNotEmpty()
     role: string;
 
-  @Column({ name: 'email' })
+  @Column({ name: 'email', unique: true })
   @IsEmail()
   @IsNotEmpty()
     email: string;
