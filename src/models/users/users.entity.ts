@@ -1,5 +1,8 @@
+import { compare, hash } from 'bcrypt';
 import { IsEmail, IsNotEmpty } from 'class-validator';
 import {
+  BaseEntity,
+  BeforeInsert,
   Column,
   CreateDateColumn,
   Entity,
@@ -10,7 +13,7 @@ import {
 
 @Entity({ name: 'users' })
 @Unique(['email'])
-export class User {
+export class User extends BaseEntity{
   @PrimaryGeneratedColumn('uuid')
     id: number;
 
@@ -32,4 +35,13 @@ export class User {
 
   @UpdateDateColumn()
     updated_at: Date;
+
+  @BeforeInsert()
+  async hashPassword() {
+    this.password = await hash(this.password, 8);
+  }
+
+  async validatePassword(password: string): Promise<boolean> {
+    return compare(password, this.password);
+  }
 }

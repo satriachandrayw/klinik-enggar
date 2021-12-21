@@ -5,11 +5,11 @@ import { DashboardService } from './dashboard.service';
 
 @Controller('dashboard')
 export class DashboardController {
-  constructor(private readonly dashboardService: DashboardService) {}
+  // constructor(private readonly dashboardService: DashboardService) {}
 
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Get()
-  getDashboard(@Req() req: Request) {
-    return `ini dashboard ${req}`;
+  getDashboard() {
+    return 'ini dashboard';
   }
 }

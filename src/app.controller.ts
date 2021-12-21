@@ -4,16 +4,15 @@ import {
   Post,
   Render,
   Req,
+  Res,
   UseGuards,
 } from '@nestjs/common';
-import { Request } from 'express';
-import { AuthService } from './auth/auth.service';
-import { JwtAuthGuard } from './auth/jwt-auth.guard';
-import { LocalAuthGuard } from './auth/local-auth.guard';
+import { Request, Response } from 'express';
+import { AppService } from './app.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private appService: AppService) {}
 
   @Get('login')
   @Render('login')
@@ -21,16 +20,14 @@ export class AppController {
     return { message: 'Hello World!' };
   }
 
-  @UseGuards(LocalAuthGuard)
   @Post('login')
-  @Render('home')
-  homepage(@Req() req: Request) {
-    return this.authService.login(req.user);
-  }
+  async homepage(@Req() req: Request, @Res() res: Response):Promise<any>{
+    const payload = { email: req.body.email, password: req.body.password }; 
 
-  @UseGuards(JwtAuthGuard)
-  @Get('dashboard')
-  getDashboard(@Req() req: Request) {
-    return req.user;
+    const accessToken = await this.appService.login(payload);
+
+    res.cookie('id-token', accessToken, { httpOnly: true });
+
+    return res.redirect('/dashboard');
   }
 }
