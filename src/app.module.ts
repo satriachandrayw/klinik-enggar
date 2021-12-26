@@ -8,6 +8,8 @@ import { User } from './models/users/users.entity';
 import { UsersModule } from './models/users/users.module';
 import { AuthModule } from './auth/auth.module';
 import { DashboardModule } from './models/dashboard/dashboard.module';
+import { MedicineModule } from './models/medicine/medicine.module';
+import { Medicine } from './models/medicine/medicine.entity';
 
 @Module({
   imports: [
@@ -18,10 +20,11 @@ import { DashboardModule } from './models/dashboard/dashboard.module';
       username: 'satriachandrayw',
       password: 'P@ssw0rd123',
       database: 'postgres',
-      entities: [User],
+      entities: [User, Medicine],
       synchronize: true,
     }),
     UsersModule,
+    MedicineModule,
     AuthModule,
     DashboardModule,
   ],

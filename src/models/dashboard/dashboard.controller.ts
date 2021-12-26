@@ -1,4 +1,4 @@
-import { Controller, Get, Req, UseGuards } from '@nestjs/common';
+import { Controller, Get, Render, Req, UseGuards } from '@nestjs/common';
 import { Request } from 'express';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { DashboardService } from './dashboard.service';
@@ -9,7 +9,8 @@ export class DashboardController {
 
   @UseGuards(JwtAuthGuard)
   @Get()
+  @Render('home')
   getDashboard() {
-    return 'ini dashboard';
+    return { message: 'Ini Dashboard!' };
   }
 }
